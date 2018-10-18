@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static('public'));
 
-mongoose.connect("mongodb://localhost/MongoScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/MongoScraper", { useCreateIndex: true, useNewUrlParser: true});
 
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);

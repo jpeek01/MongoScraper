@@ -4,12 +4,10 @@ var db = require("../models");
 
 module.exports = function(app) {
 
-    app.get("/scrape", function(req, res) {
-        console.log('starting');
+    app.get("/scrapeArticles", function(req, res) {
         //axios.get("http://www.echojs.com/").then(function(response) {
         axios.get("https://www.npr.org/sections/news/")
         .then(function(response) {
-        console.log('starting axios');
             const $ = cheerio.load(response.data);
     
             $("article div div.imagewrap a").each(function(i, element) {
@@ -33,16 +31,27 @@ module.exports = function(app) {
                     console.log(dbArticle);
                 })
                 .catch(function(err) {
-                    return res.json(err);
+                    // return res.json(err);
                 });
             })
         });
     });
 
-    app.get('/articles', function(req, res) {
-        db.Article.find({})
+    app.get('/unsavedArticles', function(req, res) {
+        db.Article.find({"saved": 0})
         .then(function (dbArticles) {
-            console.log()
+            console.log(dbArticles);
+            res.json(dbArticles)
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+    });
+
+    app.get('/savedArticles', function(req, res) {
+        db.Article.find({"saved": 1})
+        .then(function (dbArticles) {
+            console.log(dbArticles);
             res.json(dbArticles)
         })
         .catch(function(err) {
@@ -60,7 +69,35 @@ module.exports = function(app) {
             res.json(err);
           });
       });
-}
+
+
+      app.post("/articles/:id", function(req, res) {
+        db.Note.create(req.body)
+          .then(function(dbNote) {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+          })
+          .then(function(dbArticle) {
+            res.json(dbArticle);
+          })
+          .catch(function(err) {
+            res.json(err);
+          });
+      });
+
+      app.post("/savedArticles/:id", function(req, res) {
+        db.Article.update({_id: req.params.id }, {$set: {saved: 1}})
+          .then(function(dbNote) {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: 1 });
+          })
+          .then(function(dbArticle) {
+            res.json(dbArticle);
+          })
+          .catch(function(err) {
+            res.json(err);
+          });
+      });
+
+} //End Module Export
 
 
   

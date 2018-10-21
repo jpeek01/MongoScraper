@@ -37,6 +37,7 @@ module.exports = function(app) {
         });
     });
 
+    //Get unsaved articles for the Main page
     app.get('/unsavedArticles', function(req, res) {
         db.Article.find({"saved": false})
         .then(function (dbArticles) {
@@ -48,6 +49,7 @@ module.exports = function(app) {
         });
     });
 
+    //get the saved articles for display on the Saved page
     app.get('/savedArticles', function(req, res) {
         db.Article.find({"saved": true})
         .then(function (dbArticles) {
@@ -70,20 +72,23 @@ module.exports = function(app) {
           });
       });
 
-
+      //post the Saved Article's note
       app.post("/articles/:id", function(req, res) {
+        console.log(req.body);
         db.Note.create(req.body)
           .then(function(dbNote) {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
           })
           .then(function(dbArticle) {
-            res.json(dbArticle);
+            // console.log(dbArticle);
+            res.json(dbNote);
           })
           .catch(function(err) {
             res.json(err);
           });
       });
 
+      //set Article as saved
       app.post("/savedArticles/:id", function(req, res) {
         db.Article.update({_id: req.params.id }, {$set: {saved: 1}})
           .then(function(dbNote) {

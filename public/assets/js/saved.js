@@ -40,28 +40,25 @@ $.getJSON("/savedArticles", function(data) {
             "<button type='button' class='btn btn-primary' id='saveNote' data-id='" + thisId + "'><i class='fas fa-save'></i> Save</button>"
         );
 
-        if (data.note) {;
-        $("#FormControlTextarea").val(data.note.body);
-        }
+        // if (data.note) {;
+        //     $("#FormControlTextarea").val(data.note.body);
+        // }
     });
 });
 
 $(document).on("click", "#saveNote", function() {
+    var thisId = $(this).attr("data-id");
+    console.log(thisId);
+    $.ajax({
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+            note: $("#FormControlTextarea").val()
+        }
+    }).then(function(data) {
 
-var thisId = $(this).attr("data-id");
-
-$.ajax({
-    method: "POST",
-    url: "/articles/" + thisId,
-    noteData: {
-        title: $("#noteTitle").text(),
-        body: $("#FormControlTextarea").val()
-    }
-}).then(function(notedata) {
-    console.log(notedata);
-    
-    $("#FormControlTextarea").empty();
-});
+        $("#FormControlTextarea").empty();
+    });
 });
 
 $(document).on("click", "#articles", function() {

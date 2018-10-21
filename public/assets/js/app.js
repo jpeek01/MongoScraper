@@ -36,8 +36,6 @@ $(document).on("click", "#savedArticles", function() {
     window.location.href = "/savedArticlesPage";
 });
 
-
-
 $(document).on("click", "#scrapeArticles", function() {
     window.location.href = "/scrapeArticles";
 });

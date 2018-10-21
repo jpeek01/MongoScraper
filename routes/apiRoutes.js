@@ -28,7 +28,7 @@ module.exports = function(app) {
 
                 db.Article.create(result)
                 .then(function(dbArticle) {
-                    console.log(dbArticle);
+                    // console.log(dbArticle);
                 })
                 .catch(function(err) {
                     // return res.json(err);
@@ -38,7 +38,7 @@ module.exports = function(app) {
     });
 
     app.get('/unsavedArticles', function(req, res) {
-        db.Article.find({"saved": 0})
+        db.Article.find({"saved": false})
         .then(function (dbArticles) {
             console.log(dbArticles);
             res.json(dbArticles)
@@ -49,7 +49,7 @@ module.exports = function(app) {
     });
 
     app.get('/savedArticles', function(req, res) {
-        db.Article.find({"saved": 1})
+        db.Article.find({"saved": true})
         .then(function (dbArticles) {
             console.log(dbArticles);
             res.json(dbArticles)

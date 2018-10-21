@@ -4,12 +4,32 @@ img {
 }
 
 body{
-    background-color: lightgray 
+    background-color: lightgray
 }
 
 .title {
     color: white;
     font-family: Cabin, 'Courier New', Courier, monospace
+}
+
+.cardContainer {
+    border: 1px solid orangered;
+}
+
+.articleCard {
+    float: left;
+    width: 48%;
+    height: auto;
+}
+
+#linkHolder {
+    width: 100%;
+    height: 100%;
+}
+
+#buttonHolder {
+    width: 100%;
+    height: 100%;
 }
 
 .buttontext {

@@ -8,11 +8,11 @@ $.getJSON("/unsavedArticles", function(data) {
                     "<div id='buttonHolder'><hr>" +
                         "<button type='button' class='btn btn-primary mx-1' id='saveArticle' data-id='" + data[i]._id + "'>Save Article</button>" +
                     "</div>" +
-                "</div>" + 
+                "</div>" +
             "</div>"  
         );
     }
-  });
+});
 
     $(document).on("click", "#saveArticle", function() {
 
@@ -22,10 +22,11 @@ $.getJSON("/unsavedArticles", function(data) {
             method: "POST",
             url: "/savedArticles/" + thisId,
             articleData: {
-                saved: 1
+                saved: true
             }
         }).then(function(data) {
             console.log(data);
+            window.location = "/";
         });
     });
 

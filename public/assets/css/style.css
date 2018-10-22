@@ -18,22 +18,19 @@ body{
 
 .articleCard {
     float: left;
-    width: 48%;
-    height: auto;
-}
-
-#linkHolder {
-    width: 100%;
-    height: 100%;
-}
-
-#buttonHolder {
-    width: 100%;
-    height: 100%;
+    width: 40%;
 }
 
 .buttontext {
     color: white;
     font-family: Cabin, 'Courier New', Courier, monospace;
     font-size: 1.2em;
+}
+
+#disabledTextInput {
+    width: 50%;
+}
+
+#deleteButton {
+    float: right;
 }

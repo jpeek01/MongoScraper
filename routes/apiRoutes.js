@@ -31,7 +31,7 @@ module.exports = function(app) {
                     res.redirect("/");
                 })
                 .catch(function(err) {
-                    console.log(res.json(err));
+                    // console.log(res.json(err));
                 });
             })
         });

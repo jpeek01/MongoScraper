@@ -28,9 +28,10 @@ module.exports = function(app) {
                 db.Article.create(result)
                 .then(function(dbArticle) {
                     // console.log(dbArticle);
+                    res.redirect("/");
                 })
                 .catch(function(err) {
-                    // return res.json(err);
+                    console.log(res.json(err));
                 });
             })
         });

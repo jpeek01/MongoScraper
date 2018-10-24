@@ -15,6 +15,7 @@ app.use(express.static('public'));
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/MongoScraper";
 
+// mongoose.connect(MONGODB_URI, { useCreateIndex: true, useNewUrlParser: true});
 mongoose.connect(MONGODB_URI, { useCreateIndex: true, useNewUrlParser: true});
 
 require("./routes/apiRoutes")(app);
